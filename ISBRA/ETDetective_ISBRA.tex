@@ -14,7 +14,7 @@
 \begin{document}
 
 \pagestyle{plain}
-\title{Estimation of Reaction Constants Triggered by Electron Transfer in Top-Down Mass Spectrometry}
+\title{Estimation of Intensities of Reactions Triggered by Electron Transfer in Top-Down Mass Spectrometry}
 \author{Michał Aleksander Ciach\inst{1} \and Mateusz Krzysztof Łącki\inst{1} \and Błażej Miasojedow\inst{1} \and Frederik Lermyte\inst{2,3} \and Dirk Valkenborg\inst{3,4} \and Frank Sobott\inst{2} \and Anna Gambin\inst{1} }
 
 % \author{Michał Ciach\inst{1} \and Mateusz Krzysztof Łącki\inst{1} \and Błażej Miasojedow\inst{1} \and Frederik Lermyte\inst{2,3} \and Dirk Valkenborg\inst{3,4} \and Frank Sobott\inst{2,5,6} \and Anna Gambin\inst{1} }
@@ -44,7 +44,7 @@ We present a method to analyse these results from the perspective of the reactio
 
 There are several other fragmentation techniques, most importantly the Collision Induced Dissociation, CID, where the cleavage is induced by collisional activation, i.e. bombardment with non-reactive molecules \cite{Mitchell_Wells2005-gn}. A major disadvantage of the CID is that it often leads to loss of posttranslational modifications, particularly phosphorylation \cite{Kim2012-yz}. The Electron Transfer Dissociation has been also found to provide more uniform fragmentation than the CID, which breaks mostly the weakest bonds \cite{Kim2012-yz,Zhurov2013-ua}. However, a notable amount of work has been devoted to analyzing and mathematical modelling of the CID reaction; see, for example, \cite{Zhang2004-fp,Zhang2005-jn,Wysocki2000-am}, while the ETD has received less attention.
 
-The fragmentation in ETD is induced by the transfer of an electron from a radical anion to the sample peptide/protein cation and results in a cleavage of one of the peptide bonds \ce{N-C_\alpha} in the protein’s backbone. The sample cations get positively charged during the electrospray ionization (ESI) step \cite{Fenn1989-mp} when protons are attached to the sample molecules, leading to the formation of \ce{[M + nH]^{n+}} ions, i.e. adding both charge and mass to the analyte molecule M.
+The fragmentation in ETD is induced by the transfer of an electron from a radical anion to the sample peptide/protein cation and results in a cleavage of one of the peptide bonds \ce{N-C_\alpha} in the protein’s backbone. The sample cations get positively charged during the electrospray ionization (ESI) step \cite{Fenn1989-mp} when protons are attached to the sample molecules, leading to the formation of~$[\text{M+nH}]^\text{n+}$ ions, i.e. adding both charge and mass to the analyte molecule M.
 
 Anions and cations may interact in several ways (see Fig.~\ref{img::reactions}):
 \begin{enumerate}
@@ -57,7 +57,7 @@ Anions and cations may interact in several ways (see Fig.~\ref{img::reactions}):
 \begin{figure}[h]\centering
         \includegraphics[width=.8\textwidth]{reactions.png}
         \caption{Studied chemical reactions  and
-        idealization of the deconvolution of isotopic structures performed by {\sc MassTodon} (right).}\label{img::reactions}
+        idealization of the deconvolution of isotopic structures performed by {\sc MassTodon}.}\label{img::reactions}
 \end{figure}
 
 
@@ -71,10 +71,10 @@ In all of the reactions described above, the charge of a protein cation is reduc
 \end{figure}
 
 
-The peptide bond cleavage induced by ETD is believed to be fairly uniform. A notable exception from this rule is the peptide bond of proline: due to the ring structure of this amino acid, the \ce{c}- and \ce{z}-ions are held together even after the \ce{N-C\alpha} bond cleavage. A specific type of \ce{N-C\alpha} bond cleavage occurs on the N-terminus, leading to a loss of one ammonia molecule. The precise mechanism of this reaction is not known. However, the current work we assume this reaction to be an ETD, and the ammonia molecule is treated as a \ce{c} fragment. Therefore, the number of possible ETD cleavage sites is equal to the number of amino acids other than proline in the protein/peptide sequence.
+The peptide bond cleavage induced by ETD is believed to be fairly uniform. A notable exception from this rule is the peptide bond of proline: due to the ring structure of this amino acid, the \ce{c}- and \ce{z}-ions are held together even after the \ce{N-C_\alpha} bond cleavage. A specific type of \ce{N-C\alpha} bond cleavage occurs on the N-terminus, leading to a loss of one ammonia molecule. The precise mechanism of this reaction is not known. However, the current work we assume this reaction to be an ETD, and the ammonia molecule is treated as a \ce{c} fragment. Therefore, the number of possible ETD cleavage sites is equal to the number of amino acids other than proline in the protein/peptide sequence.
 
 \textbf{Related research.}
-Various approaches have been taken to model electron transfer driven reactions \cite{Breuker2004-az,Simons2010-gy,Zhurov2013-ua,Turecek2013-fq}. A somewhat similar approach to the one taken by us was presented by Zhang \cite{Zhang2004-fp,Zhang2005-jn,Zhang2011-lg}, who uses a kinetic model to study fragmentation.
+Various approaches have been taken to model electron transfer driven reactions \cite{Breuker2004-az,Simons2010-gy,Zhurov2013-ua,Turecek2013-fq}. A somewhat similar approach to the one taken by us was presented by Zhang \cite{Zhang2004-fp,Zhang2005-jn}, who uses a kinetic model to study fragmentation.
 In \cite{Zhang2010-fp}, Zhang adapts the model to explicitly model mass spectra obtained with the use of ETD. The model relies upon 280 parameters and its derivation is grounded in the theory of statistical mechanics. The model was fitted to a training data set consisting of more than 7000 ETD spectra simultaneously.
 
 On the other end of the possible spectrum of approaches to model protein fragmentation, a notable amount of literature has been built up around the idea of purely data-driven prediction of the intensity of peptides in tandem MS experiments \cite{Elias2004-fr,Arnold2006-wn,Degroeve2013-ej} . A more exploratory approach targeted at studying fragmentation patterns was taken by Li \cite{Li2011-mq}. That said, the above approaches have been applied mainly to study the Collision Induced Dissociation.
@@ -99,14 +99,16 @@ First, we introduce the theoretical considerations behind our model. Then, we de
 
 \section{Formal model of the ETD reaction}
 
-Following the ideas outlined in \cite{Gambin2010}, we model the ETD as a continuous time Markov Jump Process, MJP. To describe the state space for our model we introduce the \textit{reaction graph}: a bipartite directed graph with two types of nodes we call \textit{molecular species} and \textit{reactions}. The molecular species correspond to cations that are substrates or products of the studied reactions, see Fig.~\ref{img::petrinet}. Each molecular species $u$ can be uniquely described by: (1) the sequence of amino acids $s$, (2) the charge of the cation $q$, and (3) the number of protons $g$ that have been paired with electrons, $u = (s,q,g)$. Storing $g$ is necessary to correctly calculate the mass of cation. All molecules that cannot be observed, e.g. analyte molecules that lost all charged protons or inner fragments, are merged into one molecular species called the \textit{cemetery}. We assume to know only the numbers of protons and not their positioning. We also assume that ESI-generated protons can only be attached to basic amino acids.
+Following the ideas outlined in \cite{Gambin2010}, we model the ETD as a continuous time Markov Jump Process, MJP, which is a well established approach to modelling chemical reactions.
+To describe the state space for our model we introduce the \textit{reaction graph}: a bipartite directed graph with two types of nodes we call \textit{molecular species} and \textit{reactions}. The molecular species correspond to cations that are substrates or products of the studied reactions, see Fig.~\ref{img::petrinet}. Each molecular species $u$ can be uniquely described by: (1) the sequence of amino acids $s$, (2) the charge of the cation $q$, and (3) the number of protons $g$ that have been paired with electrons, $u = (s,q,g)$. Storing $g$ is necessary to correctly calculate the mass of cation. All molecules that cannot be observed, e.g. analyte molecules that lost all charged protons or inner fragments, are merged into one molecular species called the \textit{cemetery}. We assume to know only the numbers of protons and not their positioning. We also assume that ESI-generated protons can only be attached to basic amino acids.
 \begin{figure}[h]
         \center
         \includegraphics[width=\textwidth]{petrinet.png}
         \caption{A simplified Markov Jump Process of the ETD process. The \textit{molecular species} are depicted in black and the \textit{reactions} in orange. The dagger symbolizes the \textit{cemetery} -- a species that collects all molecules introduced to the instrument that lost their charge during in the cascade of reactions. The reaction graph serves as a board for \textit{tokens}. Counts of tokens are plotted in red in panel (B). During each reaction a token disappears on the substrate side and product tokens appear: one in case of ETnoD and PTR, two in case of ETD, as seen in (B).}\label{img::petrinet}
 \end{figure}
 
-The molecular species are occupied by tokens that represent the numbers of given molecular species. Denote the number of tokens at place $u$ by $x_u$. The state $x$ of the MJP is defined as a collection of all such counts at a given moment in time, so that $x = (x_u)$.  From a state $x$ the system can evolve to another state following one of possible reactions, check Fig.~\ref{img::petrinet} (B).
+The molecular species are occupied by tokens that represent the numbers of given molecular species.
+Denote the number of tokens at place $u$ by $x_u$. The state $x$ of the MJP is defined as a collection of all such counts at a given moment in time, so that $x = (x_u)$.  From a state $x$ the system can evolve to another state following one of possible reactions, check Fig.~\ref{img::petrinet} (B).
 
 We investigate $L$ fragmenting reactions, where $L$ equals to the number of amino acids of the protein under study minus the number of prolines that ETD cannot fragment. We also consider two other reactions corresponding to ETnoD and PTR, that change one substrate into one product.
 
@@ -114,20 +116,21 @@ We investigate $L$ fragmenting reactions, where $L$ equals to the number of amin
 % reactions are drawn from a precise distribution. Another distribution describes when a reaction can happen. Here, time is
 We model the time of experiment as an interval $[0,1]$, where $0$ is the beginning of the process and $1$ corresponds to the moment of observation. The probability that $X$ ends up in state $x$ at a given time $t$ is denoted by $p_x^t$. The derivative of this quantity follows the master equation,
         $$\dot{p}_x^t = \sum_{y\not=x} p_y^t Q_{yx} - p_x^t \sum_{y\not=x} Q_{xy},$$
-Above, $Q_{xy}$ is the intensity of the jump from state $x$ to $y$. The intensity equals $0$ if $y$ cannot be obtained from $x$ with reaction $R$. Otherwise, the intensity is proportional to the number of the substrate molecules, $Q_{xy}=c_R x_{s_R}$,  where $c_R$ is the intensity constant described later on.
+Above, $Q_{xy}$ is the intensity of the jump from state $x$ to $y$. The intensity equals $0$ if $y$ cannot be obtained from $x$ with reaction $R$. Otherwise, the intensity is proportional to the number of the substrate molecules, $Q_{xy}=c_R x_{s_R}$,  where $c_R$ is the intensity constant described later on and $s_R$ is the index of the reaction's $R$ substrate in the reaction graph.
 
 The average numbers of cations at that place $u$ is $E_u^t= \sum_x x_up_x^t$.
 At $t=0$, the process is deterministic: all tokens can be found only in the precursor node with maximal charge state -- the root, $r$.
 Thus, $E_r^0=N$ and $E_u^0=0$ if $u \not= r$.
 These averages evolve according to
         $$\dot E_u^t=\sum_x x_u \sum_{y\not=x} p_y^t Q_{yx} -\sum_x x_u p_x^t \sum_{y\not=x} Q_{xy}.$$
-The double sums iterate over tuples $(x,y)$ or $(y,x)$ corresponding to particular changes in the placement of tokens.
-Unreachable states $y$ have zero intensities, $Q_{xy} = 0$.
-It follows that
-        $$\dot E_u^t = \sum_R cR \sum_{x:x=Ry}  x_u (x_{s_R}+1) p_{R^{-1}x}^t- \sum_R cR \sum_{x} x_u x_{s_R} p_x^t,$$
-where $Ry$ denotes the state obtained from $y$ after reaction $R$ and $R^{-1}x$ denotes the state that results in $x$ when $R$ happened. For a given $R$,
-        $$\sum_{x:x=Ry} x_u (x_{s_R}+1) p_{R^{-1}x}^t = \sum_{y}  (Ry)_u y_{s_R} p_y^t = \sum_x (Rx)_u x_{s_R} p_x^t,$$
-as we can restate the sums in terms of states from before transition $R$ and retag $y$ for $x$.
+For unreachable states $Q_{xy} = 0$.
+A transition from $x$ to $y$ corresponds to input $x$ reacting under $R$, implying that
+        $$\dot E_u^t = \sum_R c_R \sum_{x: \exists_y x=Ry}  x_u (x_{s_R}+1) p_{R^{-1}x}^t- \sum_R c_R \sum_{x} x_u x_{s_R} p_x^t,$$
+where $Ry$ denotes the state obtained from $y$ after reaction $R$,
+and $R^{-1}x$ is the substrate state of $x$ given $R$.
+Note that the minuend enumerates only states $x$ for which $R^{-1}x$ is properly defined.
+We can rephrase the sum in terms of the source states $y$ and then retag them to $x$,
+        $$\sum_{x:\exists_y x=Ry} x_u (x_{s_R}+1) p_{R^{-1}x}^t = \sum_{y}  (Ry)_u y_{s_R} p_y^t = \sum_x (Rx)_u x_{s_R} p_x^t.$$
 Thus, $\dot E_u^t = \sum_R c_R \sum_x   \left[(Rx)_u-x_u \right] x_{s_R} p_x^t$. The term $\left[(Rx)_u-x_u\right]$ equals $1$ if place $u$ is a product of reaction $R$, $-1$ for substrate, and $0$ otherwise.
 Therefore, it is a value dependent on $R$ and not on particular state $x$.
 Denote it by $K_R$.
@@ -142,9 +145,10 @@ The last formula can be rewritten as $ \dot E_u^t = \sum_{v\rightarrow u} \lambd
 The presented system of ODEs is recursive and can be solved from the root $r$ downwards.
 For the root, $\dot E_r^t=-\lambda_{rr} E_r^t$, so that function $E_r^t= Ne^{-\lambda_{rr}t}$ solves it.
 If we know solution of all ancestors of $u$ we can explicitly solve the problem for $u$. To see this, consider first a child $u$ of the root species $r$.
-Then, $\dot E_u^t= E_r^t(t)-\lambda_{uu} E_u^t$ which results in $E_u^t= \frac{N}{\lambda_{rr}-\lambda_{uu}}(e{-\lambda_{uu}t}-e^{-\lambda_{rr}t})$ because
+Then, $\dot E_u^t= \lambda_{ru} E_r^t-\lambda_{uu} E_u^t$ which results in
+$E_u^t= \frac{N \lambda_{ru}}{\lambda_{rr}-\lambda_{uu}}(e^{-\lambda_{uu}t}-e^{-\lambda_{rr}t})$ because
 $E_u^0=0$, provided that $\lambda_{rr} \not= \lambda_{uu}$. In general, one has to consider a linear combination of solution of all ancestors of $u$ rather then only the root solution and solve $E_u^t=e^{-\lambda_{uu}t} \int_0^t e^{\lambda_{uu}s} f_{>u}(s)ds$.
-Then, one can prove that the general solution is $E_u^t=\sum_{v>u}b_{vu}e{-\lambda_{vv}t}-b_{uu}e^{-\lambda_{uu}t}$, where $b_{vu}= \frac{1}{\lambda_{uu}-\lambda_{vv}} \sum_{w: v\geq w \rightarrow u} \lambda_{wu}b_{vw}$ and $b_{uu}=-\sum_v b_{vu}$.
+Then, one can prove that the general solution is $E_u^t=\sum_{v>u}b_{vu}e^{-\lambda_{vv}t}-b_{uu}e^{-\lambda_{uu}t}$, where $b_{vu}= \frac{1}{\lambda_{uu}-\lambda_{vv}} \sum_{w: v\geq w \rightarrow u} \lambda_{wu}b_{vw}$ and $b_{uu}=-\sum_v b_{vu}$.
 Also this result relies on $\lambda_{vv} \not= \lambda_{uu}$ for all parents $v$ of $u$.
 % Thus, $\dot E_u^t=f_{>u}(t)-\lambda_{uu} E_u^t$. Given that $E_u^0=0$ for all $u_r$, the solution to this equation is, by straightforward integration, $E_u^t=e^{-\lambda_{uu}t} \int_0^t e^{\lambda_{uu}s} f_{>u}(s)ds$.
 % Consider that $u$ is one of the sons of root $r$: plug in $f_{>u}(s)=E_r^s$ above and perform integration to obtain $E_u^t= \frac{N}{\lambda_{rr}-\lambda_{uu}}(e{-\lambda_{uu}t}-e^{-\lambda_{rr}t})$.
@@ -152,10 +156,10 @@ Also this result relies on $\lambda_{vv} \not= \lambda_{uu}$ for all parents $v$
 %
 % Then, one can prove that the general solution is $E_u^t=\sum_{v>u}b_{vu}e{-\lambda_{vv}t}-b_{uu}e^{-\lambda_{uu}t}$, where $b_{vu}= \frac{1}{\lambda_{uu}-\lambda_{vv}} \sum_{w: v\geq w \rightarrow u} \lambda_{wu}b_{vw}$ and  $b_{uu}=-\sum_v b_{vu}.$
 
-The required inequalities hold when one assumes that $\lambda_u = I q_i^2 P_{R_u}$, where $I$ is the overall intensity of all reactions, $q_u$ is the charge of molecules in place $u$, and $P_{R_u}$ is the probability of $R_u$ given that some reaction occurred. Then $\lambda_{vv} - \lambda_{uu} = I \sum_{R} P_R (q_v^2  - q_u^2) > 0.$
+The required inequalities hold when one assumes that $\lambda_{uv} = I q_i^2 P_{R_{uv}}$, where $I$ is the overall intensity of all reactions, $q_u$ is the charge of molecules in place $u$, and $P_{R_{uv}}$ is the probability of reaction $R_{uv}$, where $u$ is the substrate and $v$ one of the products. Then $\lambda_{vv} - \lambda_{uu} = I \sum_{R} P_R (q_v^2  - q_u^2) > 0.$
 The last inequality holds because $u$ has a lower charge state than any of its ancestor
 (as all reactions reduce the charge state by at least one).
-The quadratic dependence on charge, $q_u^2$, is not merely technical: it can be motivated by theoretical considerations \cite{McLuckey1999-su}.
+The quadratic dependence on charge, $q_u^2$, can be motivated by theoretical considerations \cite{McLuckey1999-su}.
 
 For ETnoD and PTR respectively $P_{R_u}=P_\text{PTR}$ and $P_{R_u}=P_\text{ETnoD}$.
 The case of ETD is more complex, as it can cleave different bonds. We denote the probability of the cleavage of the $l^\text{th}$ bond by $P_{\text{ETD}_l}$. Additionally, one has to divide the $q-1$ protons and $g$ quenched protons between both the \ce{c} and \ce{z} fragments, so that $q_c+q_z=q-1$ and $g_c+g_z = g$. In its turn, the division of remaining $q-1$ protons and $g$ quenched protons depends on the available number of basic amino-acids on both fragments, denoted by $B_c$ and $B_z$. It is assumed to occur with probability $P_l(q_c, g_c) = \frac{ \binom{B_c}{q_c}\binom{B_z}{q_z} }{ \binom{B_c+B_z}{q-1} } \frac{ \binom{B_c - q_c}{g_c} \binom{B_z-q_z}{g_z} }{ \binom{B_c+B_z-q+1}{g} }$,
@@ -163,9 +167,10 @@ which corresponds to placing the $q_c$ charges on the basic sites of the fragmen
 
 To conclude, the probability of the ETD on the $l^\text{th}$ amino acid with a given proton distribution among fragments equals $P_{R_u}=P_{\text{ETD}_l} P_l(q_c, g_c)$. The probability of observing any ETD reaction, $P_\text{ETD}$, can be obtained by summing $P_{\text{ETD}_l}$ over possible cleavage sites.
 
-Overall, the model is parametrized by the total reaction intensity $I$, two reaction probabilities $(P_\text{PTR}, P_\text{ETnoD})$ and $L$ ETD reaction probabilities $P_\text{ETD}$. For a given vector of model parameters  we can obtain the average number of cations for each molecular species at time $t=1$, $e_u^1 =e_{u\theta}$. On the other hand, using {\sc MassTodon} we obtain the estimates $y_u$ of the percentual content of that molecular species in the experimental mass spectrum. For a given $\theta$, we measure the error using a logarithm of a sum of squared errors, $$d(e_\theta,y) = \log \sum_u (e_{u\theta}-y_u)^2.$$
+Overall, the model is parametrized by the total reaction intensity $I$, two reaction probabilities $(P_\text{PTR}, P_\text{ETnoD})$ and $L$ ETD reaction probabilities $P_\text{ETD}$. For a given vector of model parameters  we can obtain the average number of cations for each molecular species at time $t=1$, $e_u^1 =e_{u\theta}$. On the other hand, using {\sc MassTodon} we obtain the estimates $y_u$ of the percentual content of that molecular species in the experimental mass spectrum. For a given $\theta$, we measure the error using a logarithm of a sum of squared errors, $d(e_\theta,y) = \log \sum_u (e_{u\theta}-y_u)^2$.
 The element $\theta^*$ that minimizes the error is our estimate of the true value of the parameters.
 
+The number of nodes in the reaction graph is $\mathcal O (Lq_0^2)$. Each node has $\mathcal O(q_0^2)$ parents. Reaction intensities can be obtained in constant time, except for ETD obtainable in $\mathcal O(q_0)$ because of the  $P_l(q_c, g_c)$ term. What follows, the cost of evaluating $E_u^t$ is $\mathcal O(Lq^5)$.
 
 \section{Validation \& Results}
 
@@ -187,7 +192,7 @@ We have tested the model and the fitting procedure on both simulated and experim
 
 \textbf{Fitting to experimental data.} The model has been fitted to $53$ Substance P spectra, obtained at various travelling-wave height/velocity combinations as described in the Materials and Methods section. After fitting the model to the data, the validity of the model was further investigated by computing the percentage of the experimental spectrum explained by the theoretically predicted spectrum. We call this value the \textit{Explanation Percentage} (EP) and define it to be the common part of a theoretical and experimental spectrum. Since both spectra are normalized so that they sum to one, the Explanation Percentage can be expressed in a simple formula,
 $ EP = \sum_u \min\{y_u, e_u^\text{norm}\}.$
-Note, that because of normalization, $0 \leq EP \leq 1$. We present the Explanation Percentage calculated for considered data sets in Fig.~\ref{fig::melon} (two panels in the upper left corner): the typical values are between $40\%$ and $98\%$, mostly around $80\%$. These results are very promising given that the assumption that process intensities are constant, is rather strict, as discussed later on.
+Note, that because of normalization, $0 \leq EP \leq 1$. We present the Explanation Percentage calculated for considered data sets in Fig.~\ref{fig::melon} (two panels in the upper left corner): the values are between $40\%$ and $98\%$, mostly around $80\%$. These results are very promising given that the assumption that process intensities are constant, is rather strict, as discussed later on.
 
 \begin{figure}[h]
         \center
@@ -209,6 +214,8 @@ Due to its simplicity, the model described here can be used in further fundament
 As mentioned in the Introduction, our model, being a kinetic model, is somewhat similar in nature to that presented by Zhang \cite{Zhang2010-fp}. However, there are many differences in the conceptual approach to the problem. The earlier model is derived from first principles of statistical physics, whereas that proposed by us is much more phenomenological: the physical content is reflected only in the construction of possible states and enumeration of ways of how one state can be modified into another state. Knowing this, we cast the problem into the well studied setting of continuous time Markov Jump Processes. Because of that, the number of parameters that describes our model is fairly limited, in contrast to the approach described in  \cite{Zhang2010-fp}. Another difference is that we do not estimate any parameters common to more than one data set: we can estimate our model completely based on one spectrum alone. This allows us to compare reaction intensities for different experimental conditions. As shown in the Results section, this lets us to simplify the comparison of many mass spectra gathered in different experimental conditions and summarize the results in a convenient way using just a few dimensions. Note that in precisely the same way one can compare spectra coming from different instruments, which is important to properly design the experiment, see \cite{Lermyte2015-lm}.
 
 A natural way for this article to proceed is to explain the influence of the instrumental settings and experimental conditions on the reaction intensity and cleavage preferences. This can be investigated using statistical methodology, like the generalized linear models, Dirichlet regression in particular.
+
+The code is available for download at \url{}.
 
         % What is more, estimating the reaction intensities does not prevent us from estimating the deep parameters of the phenomenon, such as the activation energy in Arrhenius equations or the parameters describing the effective temperature. The task is even greatly simplified, as one can apply any traditional statistical and/or machine learning techniques used to model the the functional dependence of the intensities estimated from individual spectra given the other descriptors that may include specific experimental settings of the instrument. For instance, the analysis of the dependence of conditional probabilities PR on the deep parameters could be performed using Dirichlet regression or sparse Dirichlet regression \cite{Chen2013-zb}. Finding and fine-tuning the optimal tools for the further analysis of the data obtained by the methods outlined in this article is the natural way for this research to proceed.
 
